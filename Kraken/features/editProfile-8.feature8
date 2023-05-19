@@ -11,12 +11,14 @@ Feature: Edit profile
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile long bio with text
-    And I wait for 1 seconds
-    And I save edit profile changes
+    And I see the actual bio
+    And I fill profile bio with text "Hello"
     And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
+    And I navigate to page "<STAFF_PAGE>"
     And I wait for 2 seconds
     And I confirm leave page profile
     And I wait for 2 seconds
+    And I click in author user to modify
+    And I wait for 2 seconds
+    Then I should see the old user bio
    

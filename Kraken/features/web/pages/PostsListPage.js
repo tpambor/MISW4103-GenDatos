@@ -1,5 +1,5 @@
 async function getBtnNewPost(driver) {
-	return await driver.$('.ember-view.gh-btn.gh-btn-green');
+	return await driver.$('=New post');
 }
 
 async function getPost(driver, postTitle) {

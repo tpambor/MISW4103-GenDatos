@@ -1,8 +1,8 @@
 Feature: Edit profile
 
   @user1 @web
-  # Edit profile with a short biography
-  Scenario: Profile - Short biography
+  # Edit profile with a long biography
+  Scenario: Profile - Long biography
    Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
     And I sign in with "<EMAIL>" and "<PASSWORD>"
@@ -11,6 +11,7 @@ Feature: Edit profile
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
+    And I see the actual bio
     And I fill profile long bio with text 
     And I wait for 1 seconds
     And I save edit profile changes
@@ -18,3 +19,7 @@ Feature: Edit profile
     And I navigate to page "<STAFF_PAGE>"
     And I confirm leave page profile
     And I wait for 2 seconds
+    And I click in author user to modify
+    And I wait for 2 seconds
+    Then I should see the old user bio
+    

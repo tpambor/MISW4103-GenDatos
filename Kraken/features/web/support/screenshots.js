@@ -19,7 +19,7 @@ class Screenshots {
 
     createFunctionDir(){
         if (!fs.existsSync('./screenshots/'.concat(this.functionName))) {
-            fs.mkdir('./screenshots/'.concat(this.functionName), { recursive: true }, (err) => {
+            fs.mkdir('/screenshots/'.concat(this.functionName), { recursive: true }, (err) => {
                 if (err) throw err;
             });
         }

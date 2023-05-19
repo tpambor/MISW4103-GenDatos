@@ -15,11 +15,11 @@ Scenario: Post - Draft with tag
   And I put as title "$string_1"
   And I write a description
   And I click on post settings
-  And I select the tag "Getting Started"
+  And I select the tag "News"
   And I click on close settings
   And I wait for 2 seconds
   And I click on posts link
   And I wait for 2 seconds
   Then I navigate to page "<TAGS_PAGE>"
-  And I see the posts of tag "Getting Started"
+  And I see the posts of tag "News"
   And I see the post "$$string_1" in the list

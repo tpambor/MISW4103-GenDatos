@@ -15,17 +15,9 @@ Feature: Edit profile 4
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
+    And I navigate to page "<STAFF_PAGE>"
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
     Then I should see user Website in list with text "https://www.mypage.com"
-
-    And I fill profile Website with text "https://www.ghost.com"
-    And I save edit profile changes
-    And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
-    And I wait for 2 seconds
-    And I click in author user to modify
-    And I wait for 2 seconds
-    Then I should see user Website in list with text "https://www.ghost.com"
+    

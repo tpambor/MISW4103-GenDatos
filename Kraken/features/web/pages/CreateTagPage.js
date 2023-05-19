@@ -25,18 +25,15 @@ async function getSlug(driver){
 }
 
 async function getErrorMessage(driver) {
-    let message = await driver.$('.response');
-    return await message.getProperty("innerText");
-}
-
-async function getColorErrorMessage(driver) {
-    let message = await driver.$('/html/body/div[2]/div/main/section/form/div/div[1]/div[1]/div[1]/div[1]/span/p[2]');
-    return await message.getProperty("innerText");
-}
-
-async function getDescriptionErrorMessage(driver) {
-    let message = await driver.$('/html/body/div[2]/div/main/section/form/div/div[1]/div[1]/div[3]/p[1]');
-    return await message.getProperty("innerText");
+    let messages = await driver.$$('.response');
+    let message;
+    for (const element of messages){
+        message = await element.getProperty("innerText");
+        if (message.trim() != "") {
+            return message;
+        }
+    }
+    return "";
 }
 
 async function leave(driver){
@@ -49,5 +46,5 @@ async function leaveStaff(driver){
     return buttonLeave.click();
 }
 
-module.exports = {fillInName, fillInColor, fillInShortDescription,getDescriptionErrorMessage,leaveStaff, save, getSlug, getErrorMessage, 
-    getColorErrorMessage, leave};
+module.exports = {fillInName, fillInColor, fillInShortDescription,
+    leaveStaff, save, getSlug, getErrorMessage, leave};

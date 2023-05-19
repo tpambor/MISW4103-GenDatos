@@ -15,17 +15,8 @@ Feature: Edit profile 3
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
+    And I navigate to page "<STAFF_PAGE>"
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
     Then I should see user location in list with text "Colombia"
-
-    And I fill profile location with text "USA"
-    And I save edit profile changes
-    And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
-    And I wait for 2 seconds
-    And I click in author user to modify
-    And I wait for 2 seconds
-    Then I should see user location in list with text "USA"

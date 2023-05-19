@@ -11,21 +11,12 @@ Feature: Editprofile-2
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile fullname with text "Randy"
+    And I fill profile fullname with text "Sandra V."
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
+    And I navigate to page "<STAFF_PAGE>"
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    Then I should see user full name in list with text "Randy"
-
-    And I fill profile fullname with text "ghostTest"
-    And I save edit profile changes
-    And I wait for 2 seconds
-    When I navigate to page "<STAFF_PAGE>"
-    And I wait for 2 seconds
-    And I click in author user to modify
-    And I wait for 2 seconds
-    Then I should see user full name in list with text "ghostTest"
+    Then I should see user full name in list with text "Sandra V."

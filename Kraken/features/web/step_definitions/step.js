@@ -2,7 +2,7 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('chai');
 const { faker } = require('@faker-js/faker');
 
-//require("./EditProfilePage");
+require("./EditProfilePage");
 
 const createPostPage = require("../pages/CreatePostPage");
 const postsListPage = require("../pages/PostsListPage");
@@ -12,7 +12,7 @@ const createTagPage = require("../pages/CreateTagPage");
 
 //POSTS
 Given('I sign in with {kraken-string} and {kraken-string}', async function (email, password) {
-    return await loginPage.login(this.driver, email, password);
+  return await loginPage.login(this.driver, email, password);
 });
 
 Given('I see the posts of tag {string}', async function (tag) {
@@ -65,8 +65,10 @@ When('I click on publish link', async function () {
 });
 
 When('I click on publish button', async function () {
-    let publishBtn = await createPostPage.getPublishBtn(this.driver);
-    return await publishBtn.click();
+    let publishBtnFirst = await createPostPage.getPublishBtn(this.driver);
+    await publishBtnFirst.click();
+    let publishBtnSecond = await createPostPage.getPublishBtn(this.driver);
+    return await publishBtnSecond.click();
 });
 
 When('I select schedule it for later', async function () {
@@ -75,8 +77,10 @@ When('I select schedule it for later', async function () {
 });
 
 When('I click on schedule button', async function () {
-    let publishBtn = await createPostPage.getPublishBtn(this.driver);
-    return await publishBtn.click();
+    let scheduleBtnFirst = await createPostPage.getScheduleBtn(this.driver);
+    await scheduleBtnFirst.click();
+    let scheduleBtnSecond = await createPostPage.getScheduleBtn(this.driver);
+    return await scheduleBtnSecond.click();
 });
 
 When('I click on posts link', async function () {
@@ -113,13 +117,14 @@ Then('I could navigate to page with {kraken-string}', async function(url) {
 
 //STAFF
 let fullName;
+let bio;
 When("I click in Staff", async function () {
     let element = await this.driver.$(global.EditProfilePage.staff.linkSideMenu);
     return await element.click();
   });
   
   When("I click in author user to modify", async function () {
-    let element = await this.driver.$(global.EditProfilePage.staff.userToEdit);
+    let element = await this.driver.$$(global.EditProfilePage.staff.userToEdit)[1];
     return await element.click();
   });
 
@@ -128,6 +133,7 @@ When("I click in Staff", async function () {
     let element = await this.driver.$(global.EditProfilePage.staff.inputName);
     return await element.setValue(name);
   });
+
   When("I save edit profile changes", async function () {
     let element = await this.driver.$(global.EditProfilePage.staff.saveBtn);
     return await element.click();
@@ -163,14 +169,17 @@ When("I click in Staff", async function () {
     return await element.setValue(name);
   });
 
+  When("I see the actual bio", async function () {
+    let element = await this.driver.$(global.EditProfilePage.staff.inputBio);
+    bio = await element.getValue();
+  });
+
   When("I fill profile long bio with text", async function () {
     fullName = faker.lorem.words(100);
     let element = await this.driver.$(global.EditProfilePage.staff.inputBio);
     return await element.setValue(fullName);
   });
   
-  
-
   Then("I should see user full name in list with text {string}",async function (name) {
         let element = await this.driver.$(global.EditProfilePage.staff.inputName);
         const actualTitle = await element.getValue();
@@ -189,6 +198,7 @@ When("I click in Staff", async function () {
     const actualTitle = await element.getValue();
     expect(actualTitle).to.equal(name);
   });
+
   Then("I should see user facebook in list with text {string}",async function (name) {
     let element = await this.driver.$(global.EditProfilePage.staff.facebook);
     const actualTitle = await element.getValue();
@@ -207,8 +217,15 @@ When("I click in Staff", async function () {
     expect(actualTitle).to.equal(name);
   });
 
+  Then("I should see the old user bio",async function () {
+    let element = await this.driver.$(global.EditProfilePage.staff.inputBio);
+    const actualTitle = await element.getValue();
+    expect(actualTitle).to.equal(bio);
+  });
+
   Then('I confirm leave page profile', async function() {
-    return await createTagPage.leaveStaff(this.driver);
+    let element = await this.driver.$(global.EditProfilePage.staff.leaveBtn);
+    return await element.click();
   });
 
   
@@ -249,7 +266,6 @@ When('I fill in the long description', async function () {
   return await createTagPage.fillInShortDescription(this.driver,tagName);
 });
 
-
 When('I save', async function () {
     return await createTagPage.save(this.driver);
 });
@@ -265,8 +281,8 @@ Then('I see a name error message', async function() {
 });
 
 Then('I see a color error message', async function() {
-  let message = await createTagPage.getColorErrorMessage(this.driver);
-  expect(message).to.equal("The color should be in valid hex format");
+  let message = await createTagPage.getErrorMessage(this.driver);
+  expect(message).to.equal("The colour should be in valid hex format");
 });
 
 Then('I confirm leave page', async function() {
@@ -279,6 +295,6 @@ Then('I see the same number of tags as before', async function () {
 });
 
 Then('I see a long error message', async function() {
-  let message = await createTagPage.getDescriptionErrorMessage(this.driver);
+  let message = await createTagPage.getErrorMessage(this.driver);
   expect(message).to.equal("Description cannot be longer than 500 characters.");
 });
