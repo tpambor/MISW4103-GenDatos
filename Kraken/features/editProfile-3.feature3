@@ -1,7 +1,7 @@
 Feature: Edit profile 3
 
   @user1 @web
-  # Start Session in ghost, go to section profile, edit location save.
+  # Start Session, go to staff- edit profile, edit location save.
   Scenario: Profile - Edit location
     Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
@@ -11,7 +11,7 @@ Feature: Edit profile 3
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile location with text "Colombia"
+    And I fill profile location with text "$string_1"
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
@@ -19,4 +19,4 @@ Feature: Edit profile 3
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    Then I should see user location in list with text "Colombia"
+    Then I should see user location in list with text "$$string_1"

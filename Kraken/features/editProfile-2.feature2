@@ -1,7 +1,7 @@
 Feature: Editprofile-2
 
   @user1 @web
-  # Start Session in ghost, go to section profile, edit full name save.
+  # Start Session, go to staff- edit profile, edit full name save.
   Scenario: Profile - Edit full name
     Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
@@ -11,12 +11,9 @@ Feature: Editprofile-2
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile fullname with text "Sandra V."
+    And I fill profile fullname with text "$string_1"
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
     And I navigate to page "<STAFF_PAGE>"
-    And I wait for 2 seconds
-    And I click in author user to modify
-    And I wait for 2 seconds
-    Then I should see user full name in list with text "Sandra V."
+    Then I should see user in list with fullname "$$string_1"

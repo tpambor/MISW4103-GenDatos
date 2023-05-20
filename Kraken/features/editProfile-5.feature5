@@ -1,8 +1,8 @@
 Feature: Edit profile
 
   @user1 @web
-  #Start Session in ghost, go to section staff facebook url save.
-  Scenario: Profile - Edit facebook
+  # Start Session, go to staff- edit profile, edit facebook with wrong url and save.
+  Scenario: Profile - Edit wrong facebook
     Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
     And I sign in with "<EMAIL>" and "<PASSWORD>"
@@ -11,12 +11,9 @@ Feature: Edit profile
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile facebook with text "https://www.facebook.com/randy"
+    And I fill profile facebook with random url
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
-    And I navigate to page "<STAFF_PAGE>"
-    And I wait for 2 seconds
-    And I click in author user to modify
-    And I wait for 2 seconds
-    Then I should see user facebook in list with text "https://www.facebook.com/randy"
+    Then I should see a facebook error message
+    

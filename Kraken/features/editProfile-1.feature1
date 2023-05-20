@@ -1,7 +1,7 @@
 Feature: Edit profile
 
   @user1 @web
-  # Start Session in ghost, go to section staff, edit bio, and save.
+  # Start Session, go to staff- edit profile, edit bio, and save.
   Scenario: Profile - Edit bio
     Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
@@ -11,7 +11,7 @@ Feature: Edit profile
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile bio with text "You can delete this user to remove all the welcome posts"
+    And I fill profile bio with random text
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
@@ -19,5 +19,5 @@ Feature: Edit profile
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    Then I should see user bio in list with text "You can delete this user to remove all the welcome posts"
+    Then I should see user bio with random text
 

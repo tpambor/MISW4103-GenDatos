@@ -12,7 +12,7 @@ Scenario: Post - Draft with description
   And I select create new Post
   And I wait for 2 seconds
   And I put as title "$string_1"
-  And I write a description
+  And I write a random description
   And I wait for 2 seconds
   And I navigate to page "<TAGS_PAGE>"
   And I wait for 2 seconds

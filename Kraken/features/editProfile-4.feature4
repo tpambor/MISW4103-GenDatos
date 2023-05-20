@@ -1,7 +1,7 @@
 Feature: Edit profile 4
 
   @user1 @web
-  # Start Session in ghost, go to section profile, edit Website save.
+  # Start Session, go to staff- edit profile, edit Website and save.
   Scenario: Profile - Edit website
     Given I navigate to page "<BASE_URL>"
     And I wait for 2 seconds
@@ -11,7 +11,7 @@ Feature: Edit profile 4
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    And I fill profile Website with text "https://www.mypage.com"
+    And I fill profile Website with random url
     And I wait for 1 seconds
     And I save edit profile changes
     And I wait for 2 seconds
@@ -19,5 +19,5 @@ Feature: Edit profile 4
     And I wait for 2 seconds
     And I click in author user to modify
     And I wait for 2 seconds
-    Then I should see user Website in list with text "https://www.mypage.com"
+    Then I should see user Website with random url
     

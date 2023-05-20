@@ -9,7 +9,7 @@ Scenario: Tag - Short description
   And I wait for 2 seconds
   When I navigate to page "<TAGS_PAGE>"
   And I create a new tag
-  And I fill in the name
+  And I fill in the name with random
   And I fill in the short description
   And I save
   And I wait for 2 seconds

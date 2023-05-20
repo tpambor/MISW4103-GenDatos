@@ -1,18 +1,18 @@
 Feature: Crear tag
 
 @user1 @web
-# Create a tag with a name and a color
-Scenario: Tag - with name and color
+# Create a tag with a name and a slug
+Scenario: Tag - with name and slug
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
   And I sign in with "<EMAIL>" and "<PASSWORD>"
   And I wait for 2 seconds
   When I navigate to page "<TAGS_PAGE>"
   And I create a new tag
-  And I fill in the name
-  And I fill in the color
+  And I fill in the name with random
+  And I fill in the slug with random
   And I save
   And I wait for 2 seconds
   Then I navigate to page "<TAGS_PAGE>"  
   And I see the tag in the list of tags
-  And I wait for 2 seconds
+  And I wait for 1 seconds

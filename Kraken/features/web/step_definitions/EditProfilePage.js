@@ -1,5 +1,6 @@
 const EditProfilePage = {
   staff: {
+    listedStaff: "h3",
     linkSideMenu: "ul.gh-nav-manage li:nth-child(5)",
     userToEdit: ".apps-card-app-title",
     inputName: "#user-name",

@@ -4,6 +4,11 @@ async function fillInName(driver, name){
 	return await nameField.setValue(name);
 }
 
+async function fillInSlug(driver, slug){
+    let nameField = await driver.$('#tag-slug');
+	return await nameField.setValue(slug);
+}
+
 async function fillInColor(driver, color){
     let nameField = await driver.$('input[name="accent-color"]');
 	return await nameField.setValue(color);
@@ -46,5 +51,5 @@ async function leaveStaff(driver){
     return buttonLeave.click();
 }
 
-module.exports = {fillInName, fillInColor, fillInShortDescription,
+module.exports = {fillInName, fillInSlug, fillInShortDescription, fillInColor,
     leaveStaff, save, getSlug, getErrorMessage, leave};

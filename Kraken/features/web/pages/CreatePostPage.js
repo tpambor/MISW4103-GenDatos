@@ -11,7 +11,7 @@ async function getPostsLink(driver) {
 }
 
 async function getPublishLink(driver){
-	return await driver.$('.ember-view.ember-basic-dropdown-trigger.gh-btn.gh-btn-editor.gh-publishmenu-trigger');
+	return await driver.$('.ember-view.ember-basic-dropdown-trigger.gh-btn.gh-btn-outline.gh-publishmenu-trigger');
 }
 
 async function getPublishBtn(driver){
@@ -31,19 +31,16 @@ async function getScheduleBtn(driver){
 }
 
 async function getSettingsCloseBtn(driver){
-	return await driver.$('button[title="Settings"]');
+	return await driver.$('button=Close');
 }
 
 async function getUrlArea(driver){
 	return await driver.$('input[name="post-setting-slug"]');
 }
 
-async function selectTag(driver, tag){
-	let tagField = await driver.$('#tag-input');
-	await tagField.click();
-	let tagSelector = await driver.$('li*='.concat(tag));
-	return await tagSelector.click();
+async function getExcerptArea(driver){
+	return await driver.$('#custom-excerpt');
 }
 
 module.exports = {getTitleArea, getPostArea, getPostsLink, getPublishLink, getPublishBtn, 
-	getSettingsBtn, getUrlArea, getOptSchedule, getScheduleBtn, getSettingsCloseBtn, selectTag};
+	getSettingsBtn, getUrlArea, getOptSchedule, getScheduleBtn, getSettingsCloseBtn, getExcerptArea};

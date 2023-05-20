@@ -1,25 +1,21 @@
 Feature: Crear Posts
 
 @user1 @web
-# Create a draft post with a tag
-Scenario: Post - Draft with tag
+# Create a draft post with a long Excerpt
+Scenario: Post - Long Excerpt
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
   And I sign in with "<EMAIL>" and "<PASSWORD>"
   And I wait for 2 seconds
-  And I navigate to page "<TAGS_PAGE>"
-  And I see the posts of tag "Getting Started"
+  When I navigate to page "<POSTS_PAGE>"
   And I wait for 2 seconds
   When I select create new Post
   And I wait for 2 seconds
   And I put as title "$string_1"
-  And I write a description
+  And I write a random description
   And I click on post settings
-  And I select the tag "News"
+  And I write a random long excerpt
   And I click on close settings
   And I wait for 2 seconds
-  And I click on posts link
-  And I wait for 2 seconds
-  Then I navigate to page "<TAGS_PAGE>"
-  And I see the posts of tag "News"
-  And I see the post "$$string_1" in the list
+  And I click on post settings
+  Then I see a excerpt error message
