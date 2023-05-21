@@ -1,0 +1,30 @@
+Feature: Edit profile
+
+@user1 @web
+# Validaciones en el campo email:
+# 1-Correo normal
+# 2-Formato incorrecto
+# 3-Caracteres especiales
+# 4-Texto muy largo
+Scenario Outline: Profile - Validate email
+  Given I navigate to page "<BASE_URL>"
+  And I wait for 2 seconds
+  And I sign in with "<EMAIL>" and "<PASSWORD>"
+  And I wait for 2 seconds
+  When I navigate to page "<STAFF_PAGE>"
+  And I wait for 2 seconds
+  And I click in author user to modify
+  And I wait for 2 seconds
+  And I fill email with "<email>"
+  And I wait for 2 seconds
+  And I save edit profile changes
+  And I wait for 2 seconds
+  Then I see the message "<error>"
+  And I wait for 1 seconds
+
+  Examples:
+ | email | error |
+ | calvin@correo.co | |
+ | sin formato | Please supply a valid email address |
+ | ?=/* | Please supply a valid email address |
+ | Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Please supply a valid email address |
