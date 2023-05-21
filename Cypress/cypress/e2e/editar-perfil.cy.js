@@ -19,7 +19,6 @@ describe('Editar Perfil tests', () => {
     PageBase.resetStepCounter(); 
   })
 
-
   it('ESC14 - Edit Profile with full name', () => {
     faker.seed(1014);
 
@@ -215,6 +214,81 @@ describe('Editar Perfil tests', () => {
         .save()
         // Then it is saved
         .should('be.true')
+    })
+  })
+
+  it('ESC22 - Edit Profile with invalid Twitter Url', () => {
+    faker.seed(1022);
+
+    const nav = pageFactory.navigation()
+
+    // Given that I am a authenticated user visiting Ghost
+    cy.authenticate(pageFactory)
+
+    // When I navigate to the staff page
+    const staffList = nav.goToStaff()
+
+    // And select the first user
+    staffList.getUsernames().first().invoke('text').then((username) => {
+      const editProfile = staffList.editProfile(username);
+
+      editProfile
+        // And I fill in the twitter
+        .fillTwitter(faker.internet.url())
+        // And I save
+        .save()
+        // Then it is not saved
+        .should('be.false')
+    })
+  })
+
+  it('ESC23 - Edit Profile with invalid Facebook Url', () => {
+    faker.seed(1015);
+
+    const nav = pageFactory.navigation()
+
+    // Given that I am a authenticated user visiting Ghost
+    cy.authenticate(pageFactory)
+
+    // When I navigate to the staff page
+    const staffList = nav.goToStaff()
+
+    // And select the first user
+    staffList.getUsernames().first().invoke('text').then((username) => {
+      const editProfile = staffList.editProfile(username);
+
+      editProfile
+        // And I fill in the Facebook url
+        .fillFacebook(faker.internet.url())
+        // And I save
+        .save()
+        // Then it is saved
+        .should('be.false')
+    })  
+  })
+
+  it('ESC24 - Edit Profile with invalid Website', () => {
+    faker.seed(1017);
+
+    const nav = pageFactory.navigation()
+
+    // Given that I am a authenticated user visiting Ghost
+    cy.authenticate(pageFactory)
+
+    // When I navigate to the staff page
+    const staffList = nav.goToStaff()
+
+    // And select the first user
+    staffList.getUsernames().first().invoke('text').then((username) => {
+      const editProfile = staffList.editProfile(username);
+
+      editProfile
+        // And I fill in website
+        .fillWebsite(faker.lorem.slug())
+        // And I save
+        .save() 
+        // Then it is saved
+        .should('be.false')
     })
   })
 })
