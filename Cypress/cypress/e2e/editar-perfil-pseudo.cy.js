@@ -19,31 +19,34 @@ describe('Editar Perfil tests', () => {
     PageBase.resetStepCounter(); 
   })
 
-  it('ESC22 - Edit Profile  with full name  texto normal seudoAleatorio', () => {
+  it('ESC22 - Edit Profile with full name', () => {
+    const nav = pageFactory.navigation()
+
     // Given that I am a authenticated user visiting Ghost
-    cy.authenticate(pageFactory);
-      // Realizar una solicitud a la API de Mockaroo para obtener datos generados
-      cy.mokaroo().then((response) => {
-        expect(response.status).to.eq(200);    
-        const data = response.body;
-        const fullName = data[0].Full_Name;
-        // Navegar a la página de personal
-        const staffList = pageFactory.navigation().goToStaff();
+    cy.authenticate(pageFactory)
+    
+    // Make a request to Mockaroo API to get a generated profile
+    cy.mokaroo().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const fullName = data[0].Full_Name;
 
-        staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
-        const editProfile = staffList.editProfile(existingUsername);
+      // When I navigate to the staff page
+      const staffList = nav.goToStaff()
 
-        editProfile.fillFullName(fullName);
+      // And select the first user
+      staffList.getUsernames().first().invoke('text').then((username) => {
+        const editProfile = staffList.editProfile(username);
 
         editProfile
           // And I fill in the full name
-          .fillFullName(faker.name.fullName())
+          .fillFullName(fullName)
           // And I save
           .save()
           // Then it is saved
           .should('be.true')
-          });
       })
+    })
   })
 
   it('ESC23 - Edit Profile  with full name  texto in blank seudoAleatorio', () => {
