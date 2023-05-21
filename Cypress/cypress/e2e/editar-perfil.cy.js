@@ -247,23 +247,26 @@ it('ESC22 - Edit Profile pseudoAleatorio with full name ', () => {
 })
 
 it('ESC23 - Edit Profile new passwords do not match', () => {
+   // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
     cy.mokaroo().then((response) => {
       expect(response.status).to.eq(200);    
       const data = response.body;
       const password = data[0].New_Password;
-      // Navegar a la página de personal
+     
+       // When I navigate to the staff page
       const staffList = pageFactory.navigation().goToStaff();
 
+       // And select the first user
       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
       const editProfile = staffList.editProfile(existingUsername);
 
       editProfile.fillPassword(password);
 
       editProfile.changePassword().then(() => {
-        // Verify that the full name meets the maximum length requirement
-        const maxLength = 50; // Maximum length requirement for the full name
+       
+        const maxLength = 50; 
             cy.get('input#user-password-new').invoke('val').then((value) => {
               expect(value.length).to.be.at.most(maxLength);
             });
@@ -305,6 +308,7 @@ it('ESC24 - Edit Profile new passwords not match', () => {
   })
 
 it('ESC25 - Edit Profile new passwords match', () => {
+   // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
     cy.mokaroo().then((response) => {
@@ -312,9 +316,11 @@ it('ESC25 - Edit Profile new passwords match', () => {
       const data = response.body;
       const password = data[0].New_Password;
       const passwordConfirm = data[0].Verify_Password;
-      // Navegar a la página de personal
+      
+      // When I navigate to the staff page
       const staffList = pageFactory.navigation().goToStaff();
 
+       // And select the first user
       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
       const editProfile = staffList.editProfile(existingUsername);
 
