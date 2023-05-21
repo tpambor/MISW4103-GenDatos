@@ -7,6 +7,7 @@ Feature: Crear tag
 # 3-Texto muy largo
 # 4-Repetido
 # 5-Caracteres especiales
+# 6-Emojis
 Scenario Outline: Tag - Validate name
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
