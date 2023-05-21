@@ -1,0 +1,32 @@
+Feature: Crear Posts
+
+@user1 @web
+# Validaciones en la fecha de "Schedule it for later":
+# 1-Fecha anterior a la actual
+# 2-Caracteres especiales
+# 3-Fecha no válida (35 de mayo)
+Scenario Outline: Post - Validate shedule date
+  Given I navigate to page "<BASE_URL>"
+  And I wait for 2 seconds
+  And I sign in with "<EMAIL>" and "<PASSWORD>"
+  And I wait for 2 seconds
+  When I navigate to page "<POSTS_PAGE>"
+  And I wait for 2 seconds
+  And I select create new Post
+  And I wait for 2 seconds
+  And I put as title "<title>"
+  And I put as description "<description>"
+  And I click on publish link
+  And I select schedule it for later
+  And I wait for 2 seconds
+  And I change the date with "<date>"
+  And I click on schedule
+  And I wait for 2 seconds
+  Then I see the date message "<error>"
+  And I wait for 1 seconds
+
+  Examples:
+ | title | description | date |error |
+ | Publicar en el pasado | Publicar en el pasado | 2023-01-01 | Must be at least 2 mins in the future |
+ | Publicar con caracteres especiales | Publicar con caracteres especiales | ?=*/ | Invalid date format, must be YYYY-MM-DD |
+ | Publicar con fecha inexistente | Publicar con fecha inexistente | 2023-05-35 | Invalid date |

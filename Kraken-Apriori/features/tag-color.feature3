@@ -1,0 +1,26 @@
+Feature: Crear tag
+
+@user1 @web
+# Validaciones en el campo color:
+# 1-Numérico - color válido
+# 2-Numérico - color no válido
+# 3-Texto
+Scenario Outline: Tag - Validate color
+  Given I navigate to page "<BASE_URL>"
+  And I wait for 2 seconds
+  And I sign in with "<EMAIL>" and "<PASSWORD>"
+  And I wait for 2 seconds
+  When I navigate to page "<TAGS_PAGE>"
+  And I create a new tag
+  And I fill in the name with "<nombre>"
+  And I fill in the color with "<color>"
+  And I save
+  And I wait for 2 seconds
+  Then I see the message "<error>"
+  And I wait for 1 seconds
+
+Examples:
+ | nombre | color | error |
+ | Color OK | 006600 | |
+ | Color Incorrecto | 30 | The color should be in valid hex format |
+ | Color Texto | rojo | The color should be in valid hex format |

@@ -1,0 +1,32 @@
+Feature: Crear Posts
+
+@user1 @web
+# Validaciones en el campo Publish date:
+# 1-Fecha de un pasado remoto
+# 2-Fecha posterior a la actual
+# 3-Caracteres especiales
+# 4-Fecha no válida (31 de febrero)
+Scenario Outline: Post - Validate date
+  Given I navigate to page "<BASE_URL>"
+  And I wait for 2 seconds
+  And I sign in with "<EMAIL>" and "<PASSWORD>"
+  And I wait for 2 seconds
+  When I navigate to page "<POSTS_PAGE>"
+  And I wait for 2 seconds
+  And I select create new Post
+  And I wait for 2 seconds
+  And I put as title "<title>"
+  And I click on post settings
+  And I wait for 2 seconds
+  And I change the date with "<date>"
+  And I click on excerpt area
+  And I wait for 2 seconds
+  Then I see the date message "<error>"
+  And I wait for 1 seconds
+
+Examples:
+ | title | date |error |
+ | Post del pasado lejano | 1022-04-25 | Must be in the last 10 years |
+ | Post del futuro | 2024-04-25 | Must be in the past |
+ | Post con fecha rara | ?=*/ | Invalid date format, must be YYYY-MM-DD |
+ | Post con fecha inexistente | 2023-02-31 | Invalid date |

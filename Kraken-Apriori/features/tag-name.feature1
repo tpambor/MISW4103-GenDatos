@@ -1,0 +1,29 @@
+Feature: Crear tag
+
+@user1 @web
+# Validaciones en el campo Name:
+# 1-Nombre corto (normal)
+# 2-En blanco
+# 3-Texto muy largo
+# 4-Repetido
+# 5-Caracteres especiales
+Scenario Outline: Tag - Validate name
+  Given I navigate to page "<BASE_URL>"
+  And I wait for 2 seconds
+  And I sign in with "<EMAIL>" and "<PASSWORD>"
+  And I wait for 2 seconds
+  When I navigate to page "<TAGS_PAGE>"
+  And I create a new tag
+  And I fill in the name with "<nombre>"
+  And I save
+  And I wait for 2 seconds
+  Then I see the message "<error>"
+  And I wait for 1 seconds
+
+Examples:
+ | nombre | error |
+ | Etiqueta 1 | |
+ | | You must specify a name for the tag. |
+ | Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Tag names cannot be longer than 191 characters. |
+ | Etiqueta 1 | This tag name is already defined |
+ | ?=staff.name=pepe | |

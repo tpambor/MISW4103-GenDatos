@@ -1,0 +1,9 @@
+{
+    "EMAIL": "shurta1@yahoo.com",
+    "PASSWORD": "Pru3ba-MySH",
+	"BASE_URL": "http://localhost:2368/ghost/",
+	"TAGS_PAGE": "http://localhost:2368/ghost/#/tags",
+	"STAFF_PAGE": "http://localhost:2368/ghost/#/staff",
+	"POSTS_PAGE": "http://localhost:2368/ghost/#/posts" ,
+	"NEW_POST_PAGE":"http://localhost:2368/ghost/#/editor/post"	
+}
