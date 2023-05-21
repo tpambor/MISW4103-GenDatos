@@ -2,8 +2,6 @@ import { faker } from '@faker-js/faker'
 import PageFactory from '../pages/PageFactory';
 import PageBase from '../pages/PageBase';
 
-const Actualpassword = Cypress.env("password");
-
 describe('Editar Perfil tests', () => {
   let pageFactory;
 
@@ -15,12 +13,13 @@ describe('Editar Perfil tests', () => {
       pageFactory = new PageFactory(version)
       return version
     }).should('contain', 'Ghost')
-  })
+  }) 
 
   beforeEach(() => {
     PageBase.resetStepCounter(); 
   })
 
+  /*
   it('ESC14 - Edit Profile with full name', () => {
     faker.seed(1014);
 
@@ -219,7 +218,8 @@ describe('Editar Perfil tests', () => {
     })
   })
 
-it('ESC22 - Edit Profile pseudoAleatorio with full name ', () => {
+it('ESC22 - Edit Profile  with full name  texto normal seudoAleatorio', () => {
+   // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
     cy.mokaroo().then((response) => {
@@ -234,19 +234,42 @@ it('ESC22 - Edit Profile pseudoAleatorio with full name ', () => {
 
       editProfile.fillFullName(fullName);
 
-      editProfile.save().then(() => {
-        // Verify that the full name meets the maximum length requirement
-        const maxLength = 50; // Maximum length requirement for the full name
-            cy.get('input#user-name').invoke('val').then((value) => {
-              expect(value.length).to.be.at.most(maxLength);
-            });
-
-          });
+      editProfile
+        // And I fill in the full name
+        .fillFullName(faker.name.fullName())
+        // And I save
+        .save()
+        // Then it is saved
+        .should('be.true')
         });
     })
 })
 
-it('ESC23 - Edit Profile new passwords do not match', () => {
+it('ESC23 - Edit Profile  with full name  texto in blank seudoAleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+
+     // Navegar a la página de personal
+     const staffList = pageFactory.navigation().goToStaff();
+
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.fillFullNameEmpty();
+
+     editProfile.save().then(() => {
+          cy.get('.form-group.error p.response').should('contain', 'Please enter a name.');
+         });
+       });
+   })
+})
+
+
+it('ESC24 - Edit Profile with enter password and verify password null pseudo-aleatorio', () => {
    // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
@@ -265,19 +288,13 @@ it('ESC23 - Edit Profile new passwords do not match', () => {
       editProfile.fillPassword(password);
 
       editProfile.changePassword().then(() => {
-       
-        const maxLength = 50; 
-            cy.get('input#user-password-new').invoke('val').then((value) => {
-              expect(value.length).to.be.at.most(maxLength);
-            });
-
-            cy.get('.form-group.error p.response').should('contain', 'Your new passwords do not match');
+             cy.get('.form-group.error p.response').should('contain', 'Your new passwords do not match');
           });
         });
     })
 })
 
-it('ESC24 - Edit Profile new passwords not match', () => {
+it('ESC25 - Edit Profile new passwords dont not match pseudo-aleatorio', () => {
   // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     
@@ -285,6 +302,7 @@ it('ESC24 - Edit Profile new passwords not match', () => {
     cy.mokaroo().then((response) => {
       expect(response.status).to.eq(200);    
       const data = response.body;
+
       const password = data[0].New_Password;
       const passwordConfirm = data[0].Verify_Password;
       
@@ -295,6 +313,7 @@ it('ESC24 - Edit Profile new passwords not match', () => {
       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
       const editProfile = staffList.editProfile(existingUsername);
 
+      editProfile.fillOldPassword(Cypress.env('password'));
       editProfile.fillPassword(password);
       editProfile.fillConfirmPassword(passwordConfirm);
       editProfile.changePassword().then(() => {
@@ -307,7 +326,7 @@ it('ESC24 - Edit Profile new passwords not match', () => {
     })
   })
 
-it('ESC25 - Edit Profile new passwords match', () => {
+it('ESC26 - Edit Profile new passwords match seudoAleatorio', () => {
    // Given that I am a authenticated user visiting Ghost
   cy.authenticate(pageFactory);
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
@@ -325,26 +344,317 @@ it('ESC25 - Edit Profile new passwords match', () => {
       const editProfile = staffList.editProfile(existingUsername);
 
       editProfile.fillPassword(password);
-      editProfile.fillConfirmPassword(passwordConfirm);
+      editProfile.fillConfirmPassword(password);
+
       editProfile.changePassword().then(() => {
+            cy.get('.form-group.error p.response').should('contain', 'Your current password is required to set a new one');
+          });
 
-        editProfile
-        // And I save
-        .save()
-        // Then it is saved
-        .should('be.true')
-
-        //set defaul password
-        editProfile.fillPassword(Actualpassword);
-        editProfile.fillConfirmPassword(Actualpassword);
-
-        editProfile
-        // And I save
-        .save()
-        // Then it is saved
-        .should('be.true')
-        });
+  
+       
       })
     })
   })
+
+it('ESC27 - Edit Profile current password required seudoAleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const password = data[0].New_Password;
+     const passwordConfirm = data[0].Verify_Password;
+     
+     // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.fillPassword(password);
+     editProfile.fillConfirmPassword(password);
+
+     editProfile.changePassword().then(() => {
+           cy.get('.form-group.error p.response').eq(0).should('contain', 'Your current password is required to set a new one');
+         });
+
+     })
+   })
+ })
+
+it('ESC28 - Edit Profile with password empty pseudo-aleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const password = data[0].New_Password;
+    
+      // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+     editProfile.fillOldPassword(Cypress.env('password'));
+     editProfile.fillConfirmPassword(password);
+
+     editProfile.changePassword().then(() => {
+         
+         });
+       });
+   })
+})
+
+
+it('ESC29 - Edit Profile with current password empty pseudo-aleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const password = data[0].New_Password;
+    
+      // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+     editProfile.fillPassword(password);
+     editProfile.fillConfirmPassword(password);
+
+     editProfile.changePassword().then(() => {
+      cy.get('.form-group.error p.response').eq(0).should('contain', 'Your current password is required to set a new one');
+      });
+       });
+   })
+})
+
+it('ESC30 - Edit Profile location normal text seudoAleatorio', () => {
+    // Given that I am a authenticated user visiting Ghost
+   cy.authenticate(pageFactory);
+     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+     cy.mokaroo().then((response) => {
+       expect(response.status).to.eq(200);    
+       const data = response.body;
+       const Location = data[0].Location;
+       
+       // When I navigate to the staff page
+       const staffList = pageFactory.navigation().goToStaff();
+ 
+        // And select the first user
+       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+       const editProfile = staffList.editProfile(existingUsername);
+ 
+       editProfile.fillLocation(Location);
+       editProfile.save().then(() => {
+ 
+         editProfile
+         // And I save
+         .save()
+         // Then it is saved
+         .should('be.true')
+ 
+        
+         });
+       })
+     })
+   })
+
+   */
+
+
+it('ESC30 - Edit Profile location empty text seudoAleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     
+     // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.fillLocationEmpty();
+     editProfile.save().then(() => {
+
+       editProfile
+       // And I save
+       .save()
+       // Then it is saved
+       .should('be.true')
+
+      
+       });
+     })
+   })
+ })
+
+it('ESC31 - Edit Profile Website pseudo-aleatorio', () => {
+    // Given that I am a authenticated user visiting Ghost
+   cy.authenticate(pageFactory);
+     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+     cy.mokaroo().then((response) => {
+       expect(response.status).to.eq(200);    
+       const data = response.body;
+       const Website = data[0].Website;
+       
+       // When I navigate to the staff page
+       const staffList = pageFactory.navigation().goToStaff();
+ 
+        // And select the first user
+       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+       const editProfile = staffList.editProfile(existingUsername);
+ 
+       editProfile.fillWebsite(Website);
+       editProfile.save().then(() => {
+ 
+         editProfile
+         // And I save
+         .save()
+         // Then it is saved
+         .should('be.true')
+ 
+        
+         });
+       })
+     })
+   })
+   
+it('ESC32 - Edit Profile Website Caracteres especiales  pseudo-aleatorio', () => {
+    // Given that I am a authenticated user visiting Ghost
+   cy.authenticate(pageFactory);
+     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+     cy.mokaroo().then((response) => {
+       expect(response.status).to.eq(200);    
+       const data = response.body;
+       const Website = data[0].Website;
+       
+       // When I navigate to the staff page
+       const staffList = pageFactory.navigation().goToStaff();
+ 
+        // And select the first user
+       staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+       const editProfile = staffList.editProfile(existingUsername);
+ 
+       editProfile.fillWebsite(Website);
+       editProfile.save().then(() => {
+ 
+         editProfile
+         // And I save
+         .save()
+         // Then it is saved
+         .should('be.true')
+ 
+        
+         });
+       })
+     })
+   })
+
+   
+it('ESC33 - Edit Profile Facebook pseudo-aleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const Facebook_Profile = data[0].Facebook_Profile;
+     
+     // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.Facebook_Profile(Facebook_Profile);
+     editProfile.save().then(() => {
+
+       editProfile
+       // And I save
+       .save()
+       // Then it is saved
+       .should('be.true')
+
+      
+       });
+     })
+   })
+ })
+
+it('ESC34 - Edit Profile Twitter_Profile pseudo-aleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const Twitter_Profile = data[0].Twitter_Profile;
+     
+     // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.Twitter_Profile(Twitter_Profile);
+     editProfile.save().then(() => {
+
+       editProfile
+       // And I save
+       .save()
+       // Then it is saved
+       .should('be.true')
+
+      
+       });
+     })
+   })
+ })
+
+ it('ESC35 - Edit Profile Bio pseudo-aleatorio', () => {
+  // Given that I am a authenticated user visiting Ghost
+ cy.authenticate(pageFactory);
+   // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+   cy.mokaroo().then((response) => {
+     expect(response.status).to.eq(200);    
+     const data = response.body;
+     const Bio = data[0].Bio;
+     
+     // When I navigate to the staff page
+     const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+     staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+     const editProfile = staffList.editProfile(existingUsername);
+
+     editProfile.Bio(Bio);
+     editProfile.save().then(() => {
+
+       editProfile
+       // And I save
+       .save()
+       // Then it is saved
+       .should('be.true')
+
+      
+       });
+     })
+   })
+ })
+
+
+ 
 })

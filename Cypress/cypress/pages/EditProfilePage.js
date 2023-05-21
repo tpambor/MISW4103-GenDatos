@@ -4,9 +4,20 @@ class EditProfilePage extends PageBase {
   NAME = "EditProfile";
 
   fillFullName(value) {
-    cy.get('input#user-name').clear({force: true}).type(value, {scrollBehavior: 'center'});
-    this.screenshot('fillFullName');
+    if (value) {
+      cy.get('input#user-name').clear({ force: true }).type(value, { scrollBehavior: 'center' });
+      this.screenshot('fillFullName');
+    }else{
+      cy.get('input#user-name').clear({ force: true }).type(value, { scrollBehavior: 'center' });
+    }
     
+    return this;
+  }
+
+  
+  fillFullNameEmpty() {
+    cy.get('input#user-name').clear({ force: true });
+      this.screenshot('fillFullName');
     return this;
   }
 
@@ -34,6 +45,13 @@ class EditProfilePage extends PageBase {
 
     return this;
   }
+
+  fillLocationEmpty() {
+    cy.get('input#user-location').clear({ force: true });
+      this.screenshot('fillLocationEmpty');
+    return this;
+  }
+
 
   fillWebsite(value) {
     cy.get('input#user-website').clear({force: true}).type(value, {scrollBehavior: 'center'});
@@ -70,6 +88,12 @@ class EditProfilePage extends PageBase {
     return this;
   }
 
+  fillOldPassword(value) {
+    cy.get('input#user-password-old').clear({force: true}).type(value, {scrollBehavior: 'center'});
+    this.screenshot('fillOldPassword');
+    
+    return this;
+  }
   fillConfirmPassword(value) {
     cy.get('input#user-new-password-verification').clear({force: true}).type(value, {scrollBehavior: 'center'});
     this.screenshot('fillConfirmPassword');
