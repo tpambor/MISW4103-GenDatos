@@ -27,15 +27,15 @@ Equipo #3
 9. Seleccionar `E2E Testing`
 10. Seleccionar `Chrome`/`Chromium` y haz clic en `Start E2E Testing in Chromium`
 11. Seleccionar el archivo que se desea ejecutar (create-post, create-tag o editar-perfil).
-12. Se pueden observar los screenshot en la carpeta "screenshots" que se crea.
+12. Se puede observar la ejecución de las pruebas y sus resultados, tanto los exitosos como los que fallan (de los cuales se reportan los correspondientes issues).
 
-## Instrucciones para ejecutar pruebas Kraken
+## Instrucciones para ejecutar pruebas Kraken y Kraken-Apriori
 1. Ejecutar Ghost 3.41.1 con Docker `docker run --rm -t -p 2368:2368 ghost:3.41.1` (recomendado) o de forma local siguiendo las instrucciones del [tutorial](https://thesoftwaredesignlab.github.io/AutTestingCodelabs/ghost-local-deployment/index.html)
 2. Crear, en Ghost, un usuario (puede ser el usuario administrador) y tener un sitio (puede ser el que se crea por defecto).
 2. Clonar este repositorio
-3. Ir a la carpeta Kraken
+3. Ir a la carpeta Kraken o a la carpeta Kraken-Apriori (para ambas el funcionamiento es igual, pero con estrategias diferentes).
 4. Instalar Kraken con el comando `npm install kraken-node`. Se puede ver más información sobre el uso de Kraken en este [tutorial](https://thesoftwaredesignlab.github.io/AutTestingCodelabs/kraken-web-testing-tool/index.html)
 5. Abrir el archivo `properties.json` y actualizar los enlaces, el email y el password correspondientes a la instalación que tiene de Ghost
 6. En la carpeta features: **Renombrar el archivo que se desee ejecutar** para que tenga la extensión "feature" (solo un archivo con esta extensión cada vez).
-7. Ejecutar las pruebas, estando en la caperta Kraken, con el comando: `node "./node_modules/kraken-node/bin/kraken-node" run`
-8. Se pueden observar los screenshot en la carpeta "screenshots" que se crea.
+7. Ejecutar las pruebas, estando en la caperta Kraken (o Kraken-Apriori), con el comando: `node "./node_modules/kraken-node/bin/kraken-node" run`
+8. Se pueden observar los resultados por consola, tanto los exitosos como los que fallan (de los cuales se reportan los correspondientes issues).
