@@ -1,15 +1,15 @@
 # MISW4103 Semana 7
 
-## Genración de datos
+## Generación de datos
 Equipo #3
 - Laura Alejandra Carrillo Guzmán, l.carrillog@uniandes.edu.co​​
 - Sandra Victoria Hurtado Gil, sv.hurtadog@uniandes.edu.co​​
 - Leidy Viviana Osorio Jimenez, l.osorioj@uniandes.edu.co​​
 - Tim Ulf Pambor, t.pambor@uniandes.edu.co​​
 
-## Funcionalidades bajo pruebas
+## Descripción de las estrategias usadas
 
-[Funcionalidades bajo pruebas](https://github.com/tpambor/MISW4103-E2E/wiki/Funcionalidades-bajo-pruebas)
+[Estrategias usadas](https://github.com/tpambor/MISW4103-GenDatos/wiki/Estrategias-usadas)
 
 ## Instrucciones para ejecutar pruebas Cypress
 1. Clonar este repositorio
