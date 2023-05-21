@@ -5,6 +5,7 @@ Feature: Edit profile
 # 1-Texto normal
 # 2-Texto muy largo
 # 3-Caracteres especiales
+# 4-Emojis
 Scenario Outline: Profile - Validate name
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
@@ -26,3 +27,4 @@ Scenario Outline: Profile - Validate name
  | Calvin Clein | |
  | Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Name is too long |
  | ?=staff.name=pepe | |
+ | 😺👢 | |

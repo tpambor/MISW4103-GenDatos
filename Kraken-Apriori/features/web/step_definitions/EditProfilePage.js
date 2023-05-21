@@ -2,7 +2,7 @@ const EditProfilePage = {
   staff: {
     listedStaff: "h3",
     linkSideMenu: "ul.gh-nav-manage li:nth-child(5)",
-    userToEdit: ".apps-card-app-title",
+    userToEdit: ".apps-card-app .author",
     inputName: "#user-name",
     email: "#user-email",
     userEditedName: ".apps-grid-cell:last-of-type .apps-card-app-title",

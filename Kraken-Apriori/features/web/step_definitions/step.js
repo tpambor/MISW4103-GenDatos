@@ -80,7 +80,7 @@ Then('I see the date message {string}', async function(errorMessage) {
 
 //STAFF
 When("I click in author user to modify", async function () {
-    let element = await this.driver.$$(global.EditProfilePage.staff.userToEdit)[1];
+    let element = await this.driver.$$(global.EditProfilePage.staff.userToEdit)[0];
     return await element.click();
  });
 
