@@ -5,7 +5,7 @@ module.exports = defineConfig({
   viewportHeight: 1080,
   scrollBehavior: 'center',
   e2e: {
-    baseUrl: 'http://localhost:2368',
+    baseUrl: 'http://localhost:3001',
     env: {
       username: 'pedro.rulfo@example.org',
       password: '0123456789+',

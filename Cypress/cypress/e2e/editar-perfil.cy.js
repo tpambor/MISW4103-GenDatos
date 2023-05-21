@@ -16,7 +16,7 @@ describe('Editar Perfil tests', () => {
   })
 
   beforeEach(() => {
-    PageBase.resetStepCounter();
+    PageBase.resetStepCounter(); 
   })
 
   it('ESC14 - Edit Profile with full name', () => {
@@ -216,5 +216,42 @@ describe('Editar Perfil tests', () => {
         .should('be.true')
     })
   })
+
+it('Generar datos de prueba', () => {
+  cy.request('http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0').then((response) => {
+    expect(response.status).to.eq(200);
+    const data = response.body;
+    // Realiza las operaciones necesarias con los datos generados
+    // ...
+    expect(data.length).to.be.greaterThan(0);
+  });
+});
+
+it('ESC22 - Edit Profile with full name and validation fiel ', () => {
+  cy.authenticate(pageFactory);
+
+    // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+    cy.request('http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0').then((response) => {
+    expect(response.status).to.eq(200);    
+    const data = response.body;
+    const fullName = data[0].Full_Name;
+    // Navegar a la página de personal
+    const staffList = pageFactory.navigation().goToStaff();
+
+    staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+    const editProfile = staffList.editProfile(existingUsername);
+
+    editProfile.fillFullName(fullName);
+
+    editProfile.save().then(() => {
+      // Verify that the full name meets the maximum length requirement
+      const maxLength = 50; // Maximum length requirement for the full name
+          cy.get('input#user-name').invoke('val').then((value) => {
+            expect(value.length).to.be.at.most(maxLength);
+          });
+
+        });
+      });
+    })
 })
- 
+})
