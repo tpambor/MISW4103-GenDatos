@@ -9,7 +9,7 @@ Equipo #3
 
 ## Descripción de las estrategias usadas
 
-[Funcionalidades bajo pruebas](https://github.com/tpambor/MISW4103-E2E/wiki/Funcionalidades-bajo-pruebas)
+[Estrategias usadas](https://github.com/tpambor/MISW4103-GenDatos/wiki/Estrategias-usadas)
 
 ## Instrucciones para ejecutar pruebas Cypress
 1. Clonar este repositorio
