@@ -4,7 +4,8 @@ Feature: Crear tag
 # Validaciones en el campo Description:
 # 1-Texto corto
 # 2-Texto muy largo
-# 3-Caracteres especiales 
+# 3-Caracteres especiales
+# 4-Emojis
 Scenario Outline: Tag - Validate description
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
