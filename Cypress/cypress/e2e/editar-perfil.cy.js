@@ -243,7 +243,7 @@ describe('Editar Perfil tests', () => {
   })
 
   it('ESC23 - Edit Profile with invalid Facebook Url', () => {
-    faker.seed(1015);
+    faker.seed(1023);
 
     const nav = pageFactory.navigation()
 
@@ -268,7 +268,7 @@ describe('Editar Perfil tests', () => {
   })
 
   it('ESC24 - Edit Profile with invalid Website', () => {
-    faker.seed(1017);
+    faker.seed(1024);
 
     const nav = pageFactory.navigation()
 

@@ -1,5 +1,6 @@
 import TagListPage from "./TagListPage";
 import PageListPage from "./PageListPage";
+import DesignPage from "./DesignPage";
 import { StaffListPageV3, StaffListPageV4 } from "./StaffListPage";
 import { PostListPageV3, PostListPageV4 } from "./PostListPage";
 import PageBase from "./PageBase";
@@ -46,6 +47,16 @@ export class NavigationV3 extends PageBase {
     this.screenshot('goToStaff');
 
     return new StaffListPageV3();
+  }
+
+  goToDesign() {
+    cy.wait(2000);
+    cy.get('nav li a').contains('Design').click();
+
+    cy.wait(2000);
+    this.screenshot('goToDesign');
+
+    return new DesignPage();
   }
 }
 
