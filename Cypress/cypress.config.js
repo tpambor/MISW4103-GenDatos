@@ -10,7 +10,8 @@ module.exports = defineConfig({
       username: 'pedro.rulfo@example.org',
       password: '0123456789+',
       fullName: 'Pedro Rulfo',
-      blogTitle: 'Mi blog de literatura'
+      blogTitle: 'Mi blog de literatura',
+      screenshotEnabled: false,
     },
     setupNodeEvents(on, config) {
       on('before:browser:launch', (browser, launchOptions) => {

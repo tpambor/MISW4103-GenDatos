@@ -17,7 +17,9 @@ class PageBase {
       step_counter++;
 
       console.log(fileName);
-      cy.screenshot(fileName, {overwrite: true});
+      if(Cypress.env('screenshotEnabled')) {
+        cy.screenshot(fileName, {overwrite: true});
+      }
     })
   }
 }
