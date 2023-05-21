@@ -19,7 +19,7 @@ describe('Editar Perfil tests', () => {
     PageBase.resetStepCounter(); 
   })
 
-  /*
+
   it('ESC14 - Edit Profile with full name', () => {
     faker.seed(1014);
 
@@ -466,7 +466,6 @@ it('ESC30 - Edit Profile location normal text seudoAleatorio', () => {
      })
    })
 
-   */
 
 
 it('ESC30 - Edit Profile location empty text seudoAleatorio', () => {
@@ -516,7 +515,6 @@ it('ESC31 - Edit Profile Website pseudo-aleatorio', () => {
        const editProfile = staffList.editProfile(existingUsername);
  
        editProfile.fillWebsite(Website);
-       editProfile.save().then(() => {
  
          editProfile
          // And I save
@@ -525,7 +523,6 @@ it('ESC31 - Edit Profile Website pseudo-aleatorio', () => {
          .should('be.true')
  
         
-         });
        })
      })
    })
@@ -547,7 +544,6 @@ it('ESC32 - Edit Profile Website Caracteres especiales  pseudo-aleatorio', () =>
        const editProfile = staffList.editProfile(existingUsername);
  
        editProfile.fillWebsite(Website);
-       editProfile.save().then(() => {
  
          editProfile
          // And I save
@@ -556,7 +552,6 @@ it('ESC32 - Edit Profile Website Caracteres especiales  pseudo-aleatorio', () =>
          .should('be.true')
  
         
-         });
        })
      })
    })
@@ -579,7 +574,6 @@ it('ESC33 - Edit Profile Facebook pseudo-aleatorio', () => {
      const editProfile = staffList.editProfile(existingUsername);
 
      editProfile.Facebook_Profile(Facebook_Profile);
-     editProfile.save().then(() => {
 
        editProfile
        // And I save
@@ -588,7 +582,6 @@ it('ESC33 - Edit Profile Facebook pseudo-aleatorio', () => {
        .should('be.true')
 
       
-       });
      })
    })
  })
@@ -610,7 +603,6 @@ it('ESC34 - Edit Profile Twitter_Profile pseudo-aleatorio', () => {
      const editProfile = staffList.editProfile(existingUsername);
 
      editProfile.Twitter_Profile(Twitter_Profile);
-     editProfile.save().then(() => {
 
        editProfile
        // And I save
@@ -619,7 +611,6 @@ it('ESC34 - Edit Profile Twitter_Profile pseudo-aleatorio', () => {
        .should('be.true')
 
       
-       });
      })
    })
  })
@@ -641,7 +632,6 @@ it('ESC34 - Edit Profile Twitter_Profile pseudo-aleatorio', () => {
      const editProfile = staffList.editProfile(existingUsername);
 
      editProfile.Bio(Bio);
-     editProfile.save().then(() => {
 
        editProfile
        // And I save
@@ -649,12 +639,8 @@ it('ESC34 - Edit Profile Twitter_Profile pseudo-aleatorio', () => {
        // Then it is saved
        .should('be.true')
 
-      
-       });
+
      })
    })
  })
-
-
- 
 })
