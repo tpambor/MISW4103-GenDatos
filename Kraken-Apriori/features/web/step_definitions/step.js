@@ -16,10 +16,20 @@ Given('I sign in with {kraken-string} and {kraken-string}', async function (emai
   return await loginPage.login(this.driver, email, password);
 });
 
-//GENERAL - ERROR MESSAGES
+//GENERAL - ERROR MESSAGES AND NAVIGATION
 Then('I see the message {string}', async function(errorMessage) {
   let message = await general.getErrorMessage(this.driver);
   expect(message).to.equal(errorMessage);
+});
+
+When("I fill help website with {string}", async function (website) {
+  let element = await general.getHelpPageURL(this.driver);
+  return await element.setValue(website);
+});
+
+When("I save design changes", async function () {
+  let element = await general.getSaveDesignBtn(this.driver);
+  return await element.click();
 });
 
 //POSTS

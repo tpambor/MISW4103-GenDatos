@@ -6,6 +6,7 @@ Feature: Crear Posts
 # 2-En blanco
 # 3-Texto muy largo
 # 4-Caracteres especiales
+# 5-Emojis
 Scenario Outline: Post - Validate name
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
@@ -28,3 +29,4 @@ Examples:
  | | Este es un post sin nombre | Post title is required |
  | Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Este es un post con nombre largo | Posts names cannot be longer than 250 characters. |
  | ?=*/ | Este es un post con caracteres especiales en el nombre | |
+ | ❤️ 🐙 | Este post contiene emojis :-) | |
