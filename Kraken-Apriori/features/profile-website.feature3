@@ -7,6 +7,7 @@ Feature: Edit profile
 # 3-Caracteres especiales
 # 4-Texto muy largo
 # 5-Emojis
+# 6-JavaScript
 Scenario Outline: Profile - Validate website
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
@@ -30,3 +31,4 @@ Scenario Outline: Profile - Validate website
  | ?=/* | Website is not a valid url |
  | Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Website is not a valid url |
  | i❤️.ws | |
+ | javascript:alert('JavscriptPeligroso') | Website is not a valid url |

@@ -4,6 +4,7 @@ Feature: Edit profile
 # Validaciones en el campo Facebook:
 # 1-URL correcto de facebook
 # 2-Caracteres especiales 
+# 3-Emojis
 Scenario Outline: Profile - Validate facebook
   Given I navigate to page "<BASE_URL>"
   And I wait for 2 seconds
@@ -24,3 +25,4 @@ Scenario Outline: Profile - Validate facebook
  | website | error |
  | https://www.facebook.com/calvin | |
  | ?=/* | The URL must be in a format like https://www.facebook.com/yourPage |
+ | https://www.facebook.com/❤️🐙 | |
