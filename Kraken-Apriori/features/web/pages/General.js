@@ -10,4 +10,12 @@ async function getErrorMessage(driver) {
     return "";
 }
 
-module.exports = {getErrorMessage};
+async function getHelpPageURL(driver){
+	return await driver.$$('.ember-text-field.gh-input.ember-view')[7];
+}
+
+async function getSaveDesignBtn(driver){
+	return await driver.$('button=Save');
+}
+
+module.exports = {getErrorMessage, getHelpPageURL, getSaveDesignBtn};
