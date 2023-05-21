@@ -63,6 +63,20 @@ class EditProfilePage extends PageBase {
     return this;
   }
 
+  fillPassword(value) {
+    cy.get('input#user-password-new').clear({force: true}).type(value, {scrollBehavior: 'center'});
+    this.screenshot('fillPassword');
+    
+    return this;
+  }
+
+  fillConfirmPassword(value) {
+    cy.get('input#user-new-password-verification').clear({force: true}).type(value, {scrollBehavior: 'center'});
+    this.screenshot('fillConfirmPassword');
+    
+    return this;
+  }
+
   save() {
     let button = cy.contains('button', 'Save');
     button.click();
@@ -76,6 +90,21 @@ class EditProfilePage extends PageBase {
       })
       .then(() => this.screenshot('save'))
       .then(() => result.trim() === 'Saved')
+  }
+
+  changePassword() {
+    let button = cy.contains('button', 'Change Password');
+    button.click();
+
+    let result = "";
+
+    return button.invoke('text')
+      .should(($text) => {
+        result = $text;
+        expect($text.trim()).to.be.oneOf(['Retry', 'Saved'])
+      })
+      .then(() => this.screenshot('ChangePassword'))
+      .then(() => result.trim() === 'ChangePassword')
   }
 }
 

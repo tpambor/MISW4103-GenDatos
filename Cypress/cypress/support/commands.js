@@ -29,3 +29,7 @@ Cypress.Commands.add('authenticate', (pageFactory) => {
     }
   })
 })
+
+Cypress.Commands.add("mokaroo", () => {
+  return cy.request("http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0");
+});

@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker'
 import PageFactory from '../pages/PageFactory';
 import PageBase from '../pages/PageBase';
 
+const Actualpassword = Cypress.env("password");
+
 describe('Editar Perfil tests', () => {
   let pageFactory;
 
@@ -217,41 +219,126 @@ describe('Editar Perfil tests', () => {
     })
   })
 
-it('Generar datos de prueba', () => {
-  cy.request('http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0').then((response) => {
-    expect(response.status).to.eq(200);
-    const data = response.body;
-    // Realiza las operaciones necesarias con los datos generados
-    // ...
-    expect(data.length).to.be.greaterThan(0);
-  });
-});
-
-it('ESC22 - Edit Profile with full name and validation fiel ', () => {
+it('ESC22 - Edit Profile pseudoAleatorio with full name ', () => {
   cy.authenticate(pageFactory);
-
     // Realizar una solicitud a la API de Mockaroo para obtener datos generados
-    cy.request('http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0').then((response) => {
-    expect(response.status).to.eq(200);    
-    const data = response.body;
-    const fullName = data[0].Full_Name;
-    // Navegar a la página de personal
-    const staffList = pageFactory.navigation().goToStaff();
+    cy.mokaroo().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const fullName = data[0].Full_Name;
+      // Navegar a la página de personal
+      const staffList = pageFactory.navigation().goToStaff();
 
-    staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
-    const editProfile = staffList.editProfile(existingUsername);
+      staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+      const editProfile = staffList.editProfile(existingUsername);
 
-    editProfile.fillFullName(fullName);
+      editProfile.fillFullName(fullName);
 
-    editProfile.save().then(() => {
-      // Verify that the full name meets the maximum length requirement
-      const maxLength = 50; // Maximum length requirement for the full name
-          cy.get('input#user-name').invoke('val').then((value) => {
-            expect(value.length).to.be.at.most(maxLength);
+      editProfile.save().then(() => {
+        // Verify that the full name meets the maximum length requirement
+        const maxLength = 50; // Maximum length requirement for the full name
+            cy.get('input#user-name').invoke('val').then((value) => {
+              expect(value.length).to.be.at.most(maxLength);
+            });
+
           });
-
         });
-      });
     })
 })
+
+it('ESC23 - Edit Profile new passwords do not match', () => {
+  cy.authenticate(pageFactory);
+    // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+    cy.mokaroo().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const password = data[0].New_Password;
+      // Navegar a la página de personal
+      const staffList = pageFactory.navigation().goToStaff();
+
+      staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+      const editProfile = staffList.editProfile(existingUsername);
+
+      editProfile.fillPassword(password);
+
+      editProfile.changePassword().then(() => {
+        // Verify that the full name meets the maximum length requirement
+        const maxLength = 50; // Maximum length requirement for the full name
+            cy.get('input#user-password-new').invoke('val').then((value) => {
+              expect(value.length).to.be.at.most(maxLength);
+            });
+
+            cy.get('.form-group.error p.response').should('contain', 'Your new passwords do not match');
+          });
+        });
+    })
+})
+
+it('ESC24 - Edit Profile new passwords not match', () => {
+  // Given that I am a authenticated user visiting Ghost
+  cy.authenticate(pageFactory);
+    
+  // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+    cy.mokaroo().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const password = data[0].New_Password;
+      const passwordConfirm = data[0].Verify_Password;
+      
+       // When I navigate to the staff page
+      const staffList = pageFactory.navigation().goToStaff();
+
+      // And select the first user
+      staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+      const editProfile = staffList.editProfile(existingUsername);
+
+      editProfile.fillPassword(password);
+      editProfile.fillConfirmPassword(passwordConfirm);
+      editProfile.changePassword().then(() => {
+
+          // Verify password must be at least 10 characters long
+              cy.get('.form-group.error p.response').should('contain', 'Your new passwords do not match');
+            });
+
+      })
+    })
+  })
+
+it('ESC25 - Edit Profile new passwords match', () => {
+  cy.authenticate(pageFactory);
+    // Realizar una solicitud a la API de Mockaroo para obtener datos generados
+    cy.mokaroo().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const password = data[0].New_Password;
+      const passwordConfirm = data[0].Verify_Password;
+      // Navegar a la página de personal
+      const staffList = pageFactory.navigation().goToStaff();
+
+      staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
+      const editProfile = staffList.editProfile(existingUsername);
+
+      editProfile.fillPassword(password);
+      editProfile.fillConfirmPassword(passwordConfirm);
+      editProfile.changePassword().then(() => {
+
+        editProfile
+        // And I save
+        .save()
+        // Then it is saved
+        .should('be.true')
+
+        //set defaul password
+        editProfile.fillPassword(Actualpassword);
+        editProfile.fillConfirmPassword(Actualpassword);
+
+        editProfile
+        // And I save
+        .save()
+        // Then it is saved
+        .should('be.true')
+        });
+      })
+    })
+  })
 })
