@@ -11,6 +11,10 @@ Equipo #3
 
 [Estrategias usadas](https://github.com/tpambor/MISW4103-GenDatos/wiki/Estrategias-usadas)
 
+## Descripción de los escenarios
+
+[Escenarios creados](https://uniandes-my.sharepoint.com/:x:/g/personal/t_pambor_uniandes_edu_co/EVuSVzS2tPtPorlOsHlx16gBqiVNoU4k7ZFKHq1De0hxKQ?e=6TUkGW)
+
 ## Instrucciones para ejecutar pruebas Cypress
 1. Clonar este repositorio
 2. Ir a la carpeta Cypress
