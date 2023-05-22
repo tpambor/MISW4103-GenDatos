@@ -12,6 +12,12 @@ export class CreateEditPostPageV3 extends PageBase {
     return this;
   }
 
+  fillTitleNull() {
+    cy.get('textarea.gh-editor-title').clear({ force: true });
+    this.screenshot('fillTitleNull');
+
+    return this;
+  }
   fillContent(value) {
     let editor = cy.get('div.koenig-editor__editor');
     editor.click();

@@ -49,7 +49,6 @@ describe('Create post tests', () => {
       })
   })
 
-
   it('ESC56 - Create a draft post with title  and content pseudoaleatorio', () => {
       faker.seed(1001);
   
@@ -80,4 +79,37 @@ describe('Create post tests', () => {
         })
   })
 
+  it('ESC55 - Create and publish a post  withou title and content', () => {
+    const nav = pageFactory.navigation()
+
+    // Given that I am a authenticated user visiting Ghost
+    cy.authenticate(pageFactory)
+    
+    cy.mokarooPost().then((response) => {
+      expect(response.status).to.eq(200);    
+      const data = response.body;
+      const postTitle = data[0].Title;
+      // When I navigate to the posts page
+        const createPost = nav.goToPosts()
+        // And I create a new post
+        .createNewPost();
+
+
+      createPost.fillTitle(postTitle);
+
+      createPost.fillTitleNull();
+
+        createPost
+          // And I fill in the title
+          .fillTitleNull()
+          // And I fill in the description
+          .fillContent("")
+          // And I publish the post
+          .publish()
+          // And I open the settings of the post
+          .openSettings()
+          // And I close the settings
+          .close()
+    })
+  })
 })
