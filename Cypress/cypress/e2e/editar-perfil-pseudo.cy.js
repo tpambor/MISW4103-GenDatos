@@ -49,29 +49,30 @@ describe('Editar Perfil tests', () => {
     })
   })
 
-  it('ESC23 - Edit Profile  with full name  texto in blank seudoAleatorio', () => {
+  it('ESC23 - Edit Profile with full name in blank', () => {
+    const nav = pageFactory.navigation()
+
     // Given that I am a authenticated user visiting Ghost
-  cy.authenticate(pageFactory);
-    // Realizar una solicitud a la API de Mockaroo para obtener datos generados
-    cy.mokaroo().then((response) => {
-      expect(response.status).to.eq(200);    
-      const data = response.body;
+    cy.authenticate(pageFactory)
 
-      // Navegar a la página de personal
-      const staffList = pageFactory.navigation().goToStaff();
+    // When I navigate to the staff page
+    const staffList = nav.goToStaff()
 
-      staffList.getUsernames().first().invoke('text').then((existingUsername) => {      
-      const editProfile = staffList.editProfile(existingUsername);
+    // And select the first user
+    staffList.getUsernames().first().invoke('text').then((username) => {
+      const editProfile = staffList.editProfile(username);
 
-      editProfile.fillFullNameEmpty();
-
-      editProfile.save().then(() => {
-            cy.get('.form-group.error p.response').should('contain', 'Please enter a name.');
-          });
-        });
+      editProfile
+        // And I fill in the full name
+        .fillFullName("")
+        // And I save
+        .save()
+        // Then it is saved
+        .should('be.false')
+      
+      editProfile.getErrorMessage().should('contain', 'Please enter a name')
     })
   })
-
 
   it('ESC24 - Edit Profile with enter password and verify password null pseudo-aleatorio', () => {
     // Given that I am a authenticated user visiting Ghost

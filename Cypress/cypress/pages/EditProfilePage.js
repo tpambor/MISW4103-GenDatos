@@ -7,17 +7,10 @@ class EditProfilePage extends PageBase {
     if (value) {
       cy.get('input#user-name').clear({ force: true }).type(value, { scrollBehavior: 'center' });
       this.screenshot('fillFullName');
-    }else{
-      cy.get('input#user-name').clear({ force: true }).type(value, { scrollBehavior: 'center' });
+    } else {
+      cy.get('input#user-name').clear({ force: true });
     }
     
-    return this;
-  }
-
-  
-  fillFullNameEmpty() {
-    cy.get('input#user-name').clear({ force: true });
-      this.screenshot('fillFullName');
     return this;
   }
 
@@ -114,6 +107,10 @@ class EditProfilePage extends PageBase {
       })
       .then(() => this.screenshot('save'))
       .then(() => result.trim() === 'Saved')
+  }
+
+  getErrorMessage() {
+    return cy.get('.error p.response');
   }
 
   changePassword() {
