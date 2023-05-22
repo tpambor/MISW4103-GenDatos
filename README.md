@@ -33,6 +33,15 @@ Equipo #3
 11. Seleccionar el archivo que se desea ejecutar (create-post, create-tag o editar-perfil).
 12. Se puede observar la ejecución de las pruebas y sus resultados, tanto los exitosos como los que fallan (de los cuales se reportan los correspondientes issues).
 
+##Mokaroo 
+
+1. se debe crear una cuenta en https://mockaroo.com/schemas
+2. Se define los datos a generar, en el momento que se presente limite por numero de peticiones por día (200), se debe crear un nuevo shemas o esperar al día siguiente.
+ ![image](https://github.com/tpambor/MISW4103-GenDatos/assets/1694425/e5a0e319-2034-4e55-bcf1-8150fb869268)
+3. actualizar archivo 
+![image](https://github.com/tpambor/MISW4103-GenDatos/assets/1694425/5be2181c-65e8-400c-9091-2da7a67da745)
+
+
 ## Instrucciones para ejecutar pruebas Kraken y Kraken-Apriori
 1. Ejecutar Ghost 3.41.1 con Docker `docker run --rm -t -p 2368:2368 ghost:3.41.1` (recomendado) o de forma local siguiendo las instrucciones del [tutorial](https://thesoftwaredesignlab.github.io/AutTestingCodelabs/ghost-local-deployment/index.html)
 2. Crear, en Ghost, un usuario (puede ser el usuario administrador) y tener un sitio (puede ser el que se crea por defecto).
