@@ -34,6 +34,10 @@ Cypress.Commands.add("mokaroo", () => {
   return cy.request("https://api.mockaroo.com/api/ce5f7b40?count=1&key=c23e3510");
 });
 
+Cypress.Commands.add("mokarooPost", () => {
+  return cy.request("https://api.mockaroo.com/api/845e8b00?count=10&key=e67148b0");
+});
+
 Cypress.Commands.add("mockarooTag", () => {
   return cy.request("https://api.mockaroo.com/api/dda12760?count=1&key=c23e3510");
 });
