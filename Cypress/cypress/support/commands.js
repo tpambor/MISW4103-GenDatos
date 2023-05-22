@@ -31,5 +31,9 @@ Cypress.Commands.add('authenticate', (pageFactory) => {
 })
 
 Cypress.Commands.add("mokaroo", () => {
-  return cy.request("http://my.api.mockaroo.com/ghost_data.json?key=ea7bb5c0");
+  return cy.request("https://api.mockaroo.com/api/ce5f7b40?count=1&key=c23e3510");
+});
+
+Cypress.Commands.add("mockarooTag", () => {
+  return cy.request("https://api.mockaroo.com/api/dda12760?count=1&key=c23e3510");
 });
