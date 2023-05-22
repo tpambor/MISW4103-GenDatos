@@ -36,7 +36,7 @@ Equipo #3
 ##Mokaroo 
 
 1. se debe crear una cuenta en https://mockaroo.com/schemas
-2. y se define los datos a generar, en el momento que se presente limite por numero de peticiones por día, se debe crear un nuevo shemas o esperar al día siguiente.
+2. Se define los datos a generar, en el momento que se presente limite por numero de peticiones por día (200), se debe crear un nuevo shemas o esperar al día siguiente.
  ![image](https://github.com/tpambor/MISW4103-GenDatos/assets/1694425/e5a0e319-2034-4e55-bcf1-8150fb869268)
 3. actualizar archivo 
 ![image](https://github.com/tpambor/MISW4103-GenDatos/assets/1694425/5be2181c-65e8-400c-9091-2da7a67da745)
